@@ -35,7 +35,7 @@ describe('normalize', () => {
     expect(normalize('doi.org/10.1234/56789')).toBe('10.1234/56789')
   })
 
-  test('should extract doi from doi.org url', () => {
+  test('should extract doi from doi.org url with http protocol', () => {
     expect(normalize('https://doi.org/10.1234/56789')).toBe('10.1234/56789')
   })
 
