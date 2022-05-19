@@ -1,5 +1,5 @@
 {
-  "name": "doikit",
+  "name": "doi-utils",
   "version": "0.0.1",
   "description": "A toolkit to for handling DOI(Digital Object Identifier)",
   "main": "dist/index.js",
