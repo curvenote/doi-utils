@@ -1,4 +1,4 @@
-import { validate, buildUrl, normalize } from './'
+import { validate, buildUrl, normalize } from './index'
 
 describe('validateDoi', () => {
   test('should return true if doi is correct', () => {

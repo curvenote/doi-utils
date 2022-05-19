@@ -1,5 +1,4 @@
-// source: https://www.crossref.org/blog/dois-and-matching-regular-expressions/
-const DOI_VALIDATION_PATTERN = /^10.\d{4,9}\/[-._;()/:A-Z0-9]+$/i
+const DOI_VALIDATION_PATTERN = /^10.\d{4,9}\/[-._;()/:A-Z0-9]+$/i // source: https://www.crossref.org/blog/dois-and-matching-regular-expressions/
 const DOI_URL_PATTERN = /(?:https?:\/\/)?(?:dx\.)?(?:www\.)?doi.org\//
 
 export function validate(v: string) {
