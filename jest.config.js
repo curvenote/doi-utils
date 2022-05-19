@@ -15,5 +15,4 @@ module.exports = {
   },
   rootDir: __dirname,
   testMatch: ['<rootDir>/src/**/*.(spec|test).ts'],
-  extensionsToTreatAsEsm: ['.ts'],
 }

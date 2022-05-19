@@ -10,7 +10,7 @@
     "build_esm": "swc -C module.type=es6 -d dist src/",
     "clean": "rm -rf dist",
     "build": "npm run clean && npm run build_types && npm run build_esm",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "jest"
   },
   "keywords": [
     "doi",
