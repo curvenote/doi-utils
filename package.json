@@ -8,7 +8,8 @@
   "scripts": {
     "build_types": "tsc -b .",
     "build_esm": "swc -C module.type=es6 -d dist src/",
-    "build": "npm run build_types && npm run build_esm",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && npm run build_types && npm run build_esm",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "keywords": [
