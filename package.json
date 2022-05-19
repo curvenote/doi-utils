@@ -1,6 +1,6 @@
 {
   "name": "doi-utils",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Set of utility functions to help with handling DOI(Digital Object Identifier)",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
