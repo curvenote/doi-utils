@@ -3,4 +3,6 @@ tsconfig.json
 .swcrc
 .swc
 src
+.github
+jest.config.js
 
