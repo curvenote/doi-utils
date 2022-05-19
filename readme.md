@@ -2,7 +2,7 @@
 
 [![doi-utils on npm](https://img.shields.io/npm/v/doi-utils.svg)](https://www.npmjs.com/package/doi-utils)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/curvenote/doi-utils/blob/master/LICENSE)
-![CI](https://github.com/curvenote/doi-utils/workflows/CI/badge.svg)
+![CI](https://github.com/curvenote/doi-utils/actions/workflows/ci.yml/badge.svg)
 [![demo](https://img.shields.io/badge/live-demo-blue)](https://curvenote.github.io/doi-utils/)
 
 A small utility for validating, normalizing, and extracting DOIs from text strings.
