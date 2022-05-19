@@ -2,4 +2,5 @@ tsconfig.json
 *.tsbuildinfo
 .swcrc
 .swc
+src
 
