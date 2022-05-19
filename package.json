@@ -6,7 +6,7 @@
   "sideEffects": false,
   "types": "dist/index.d.ts",
   "scripts": {
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm test && npm run build",
     "build_types": "tsc -b .",
     "build_esm": "swc -C module.type=es6 -d dist src/",
     "clean": "rm -rf dist",
