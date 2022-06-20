@@ -15,7 +15,8 @@ const repos = {
  * @returns true if DOI is valid
  */
 export function validate(possibleDOI?: string): boolean {
-  return possibleDOI?.match(DOI_VALIDATION_PATTERN) !== null;
+  if (!possibleDOI) return false;
+  return possibleDOI.match(DOI_VALIDATION_PATTERN) !== null;
 }
 
 /**

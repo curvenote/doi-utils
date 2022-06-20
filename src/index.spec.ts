@@ -1,8 +1,13 @@
 import { validate, buildUrl, normalize } from './index';
 
-describe('validateDoi', () => {
+describe('validate', () => {
   test('should return true if doi is correct', () => {
     expect(validate('10.1234/56789')).toBe(true);
+  });
+
+  test('empty is not valid', () => {
+    expect(validate()).toBe(false);
+    expect(validate('')).toBe(false);
   });
 
   // can expand on here if needed
