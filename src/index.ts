@@ -1,17 +1,72 @@
-const DOI_VALIDATION_PATTERN = /^10.\d{4,9}\/[-._;()/:A-Z0-9]+$/i // source: https://www.crossref.org/blog/dois-and-matching-regular-expressions/
-const DOI_URL_PATTERN = /(?:https?:\/\/)?(?:dx\.)?(?:www\.)?doi.org\//
+const DOI_VALIDATION_PATTERN = /^10.\d{4,9}\/[-._;()/:A-Z0-9]+$/i; // source: https://www.crossref.org/blog/dois-and-matching-regular-expressions/
+// const DOI_URL_PATTERN = /(?:https?:\/\/)?(?:dx\.)?(?:www\.)?doi.org\//;
 
-export function validate(v: string) {
-  return v.match(DOI_VALIDATION_PATTERN) !== null
+const repos = {
+  zenodo: '10.5281/zenodo.',
+  elife: '10.7554/eLife.',
+};
+
+/**
+ * Validate that the input string is valid.
+ *
+ * Uses DOI pattern described here: https://www.crossref.org/blog/dois-and-matching-regular-expressions/
+ *
+ * @param possibleDOI
+ * @returns true if DOI is valid
+ */
+export function validate(possibleDOI?: string): boolean {
+  return possibleDOI?.match(DOI_VALIDATION_PATTERN) !== null;
 }
 
-export function normalize(str: string) {
-  if (str.startsWith('doi:')) {
-    return str.substring(4)
+/**
+ * Normalize an input string to the component of the DOI
+ *
+ * @param possibleDOI
+ * @returns a string if it is valid
+ */
+export function normalize(possibleDOI: string): string | undefined {
+  let doi: string | undefined = undefined;
+  if (validate(possibleDOI)) return possibleDOI;
+  if (possibleDOI.startsWith('doi:')) {
+    doi = possibleDOI.slice(4);
+    if (validate(doi)) return doi;
   }
-  return str.replace(DOI_URL_PATTERN, '')
+  try {
+    const url = new URL(possibleDOI.startsWith('http') ? possibleDOI : `http://${possibleDOI}`);
+    if (url.hostname.match(/(?:dx\.)?(?:www\.)?doi\.org/)) {
+      doi = url.pathname.replace(/^\//, '');
+    }
+    if (url.hostname.match(/(?:^|\.)doi./) || url.pathname.includes('/doi/')) {
+      doi = url.pathname.replace(/\/doi\//, '').replace(/^\//, '');
+    }
+    if (
+      url.hostname.endsWith('elifesciences.org') &&
+      url.pathname.startsWith('/articles/') &&
+      !url.hash // Can have a #bib1 which we don't want
+    ) {
+      doi = `${repos.elife}${url.pathname.replace('/articles/', '')}`;
+    }
+    if (
+      url.hostname.endsWith('zenodo.org') &&
+      url.pathname.match(/^\/(?:record|badge\/latestdoi)\//)
+    ) {
+      doi = `${repos.zenodo}${url.pathname.replace(/^\/(?:record|badge\/latestdoi)\//, '')}`;
+    }
+  } catch (error) {
+    // pass
+  }
+  if (validate(doi)) return doi;
+  return undefined;
 }
 
-export function buildUrl(doi: string) {
-  return `https://doi.org/${normalize(doi)}`
+/**
+ * Builds a canonical URL pointing to https://doi.org
+ *
+ * @param possibleDOI
+ * @returns the doi as a string
+ */
+export function buildUrl(possibleDOI: string): string {
+  const doi = normalize(possibleDOI);
+  if (!doi) throw new Error(`The doi "${possibleDOI}" was not recognized`);
+  return `https://doi.org/${doi}`;
 }
