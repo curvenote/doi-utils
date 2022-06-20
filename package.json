@@ -1,6 +1,6 @@
 {
   "name": "doi-utils",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Set of utility functions to help with handling DOI(Digital Object Identifier)",
   "author": "Curvenote Inc. <support@curvenote.com>",
   "license": "MIT",
