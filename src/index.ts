@@ -66,8 +66,8 @@ export function normalize(possibleDOI: string): string | undefined {
  * @param possibleDOI
  * @returns the doi as a string
  */
-export function buildUrl(possibleDOI: string): string {
+export function buildUrl(possibleDOI: string): string | undefined {
   const doi = normalize(possibleDOI);
-  if (!doi) throw new Error(`The doi "${possibleDOI}" was not recognized`);
+  if (!doi) return undefined;
   return `https://doi.org/${doi}`;
 }
