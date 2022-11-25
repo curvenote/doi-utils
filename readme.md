@@ -20,14 +20,14 @@ npm install doi-utils
 ## Overview & Usage
 
 ```ts
-import { validate, buildUrl } from 'doi-utils';
+import doi from 'doi-utils';
 
-const isValid = validate('http://doi.org/10.1016/j.cageo.2015.09.015');
+const isValid = doi.validate('http://doi.org/10.1016/j.cageo.2015.09.015');
 
-buildUrl('http://dx.doi.org/10.1016/j.cageo.2015.09.015');
-buildUrl('http://www.doi.org/10.1016/j.cageo.2015.09.015');
-buildUrl('http://doi.org/10.1016/j.cageo.2015.09.015');
-buildUrl('doi:10.1016/j.cageo.2015.09.015');
+doi.buildUrl('http://dx.doi.org/10.1016/j.cageo.2015.09.015');
+doi.buildUrl('http://www.doi.org/10.1016/j.cageo.2015.09.015');
+doi.buildUrl('http://doi.org/10.1016/j.cageo.2015.09.015');
+doi.buildUrl('doi:10.1016/j.cageo.2015.09.015');
 // All of these produce a normalized, secure DOI url:
 // https://doi.org/10.1016/j.cageo.2015.09.015
 ```
@@ -38,6 +38,10 @@ buildUrl('doi:10.1016/j.cageo.2015.09.015');
 - `validatePart` - Validate the "10.1016/j.cageo.2015.09.015" part of a DOI.
 - `normalize` - Normalizes a DOI url or string into a DOI of the form `10.1000/xyz000`
 - `buildUrl` - Builds a URL to https://doi.org, includes normalization
+
+## Options
+
+- `strict`: only accecpt doi.org URLs and `doi:` prefixes
 
 ---
 

@@ -1,7 +1,11 @@
-import { DEFAULT_RESOLVERS } from './resolvers';
+import { DEFAULT_RESOLVERS, STRICT_RESOLVERS } from './resolvers';
 import { validatePart } from './validatePart';
 
-export { validatePart } from './validatePart';
+export { DEFAULT_RESOLVERS, STRICT_RESOLVERS } from './resolvers';
+
+export type Options = {
+  strict?: boolean;
+};
 
 /**
  * Validate that the input string is valid.
@@ -11,9 +15,9 @@ export { validatePart } from './validatePart';
  * @param possibleDOI
  * @returns true if DOI is valid
  */
-export function validate(possibleDOI?: string): boolean {
+function validate(possibleDOI?: string, opts?: Options): boolean {
   if (!possibleDOI) return false;
-  return !!normalize(possibleDOI);
+  return !!normalize(possibleDOI, opts);
 }
 
 /**
@@ -22,7 +26,7 @@ export function validate(possibleDOI?: string): boolean {
  * @param possibleDOI
  * @returns a string if it is valid
  */
-export function normalize(possibleDOI: string): string | undefined {
+function normalize(possibleDOI: string, opts?: Options): string | undefined {
   let doi: string | undefined = undefined;
   if (!possibleDOI) return undefined;
   if (validatePart(possibleDOI)) return possibleDOI;
@@ -32,7 +36,8 @@ export function normalize(possibleDOI: string): string | undefined {
   }
   try {
     const url = new URL(possibleDOI.startsWith('http') ? possibleDOI : `http://${possibleDOI}`);
-    const resolver = DEFAULT_RESOLVERS.find((r) => r.test(url));
+    const resolvers = opts?.strict ? STRICT_RESOLVERS : DEFAULT_RESOLVERS;
+    const resolver = resolvers.find((r) => r.test(url));
     if (!resolver) return undefined;
     doi = resolver.parse(url);
   } catch (error) {
@@ -48,8 +53,8 @@ export function normalize(possibleDOI: string): string | undefined {
  * @param possibleDOI
  * @returns the doi as a string
  */
-export function buildUrl(possibleDOI: string): string | undefined {
-  const doi = normalize(possibleDOI);
+function buildUrl(possibleDOI: string, opts?: Options): string | undefined {
+  const doi = normalize(possibleDOI, opts);
   if (!doi) return undefined;
   return `https://doi.org/${doi}`;
 }

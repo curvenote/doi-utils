@@ -58,4 +58,5 @@ const pathParts: Resolver = {
   },
 };
 
+export const STRICT_RESOLVERS = [doiOrg];
 export const DEFAULT_RESOLVERS = [doiOrg, doiSubdomain, elife, zenodo, pathParts];
