@@ -1,23 +1,7 @@
-const DOI_VALIDATION_PATTERN = /^10.\d{4,9}\/[-._;()/:A-Z0-9]+$/i; // source: https://www.crossref.org/blog/dois-and-matching-regular-expressions/
-// const DOI_URL_PATTERN = /(?:https?:\/\/)?(?:dx\.)?(?:www\.)?doi.org\//;
+import { DEFAULT_RESOLVERS } from './resolvers';
+import { validatePart } from './validatePart';
 
-const repos = {
-  zenodo: '10.5281/zenodo.',
-  elife: '10.7554/eLife.',
-};
-
-/**
- * Validate that the input DOI string is valid.
- *
- * Uses DOI pattern described here: https://www.crossref.org/blog/dois-and-matching-regular-expressions/
- *
- * @param possibleDOI
- * @returns true if DOI is valid
- */
-export function validatePart(possibleDOI?: string): boolean {
-  if (!possibleDOI) return false;
-  return possibleDOI.match(DOI_VALIDATION_PATTERN) !== null;
-}
+export { validatePart } from './validatePart';
 
 /**
  * Validate that the input string is valid.
@@ -48,25 +32,9 @@ export function normalize(possibleDOI: string): string | undefined {
   }
   try {
     const url = new URL(possibleDOI.startsWith('http') ? possibleDOI : `http://${possibleDOI}`);
-    if (url.hostname.match(/(?:dx\.)?(?:www\.)?doi\.org/)) {
-      doi = url.pathname.replace(/^\//, '');
-    }
-    if (url.hostname.match(/(?:^|\.)doi./) || url.pathname.includes('/doi/')) {
-      doi = url.pathname.replace(/\/doi\//, '').replace(/^\//, '');
-    }
-    if (
-      url.hostname.endsWith('elifesciences.org') &&
-      url.pathname.startsWith('/articles/') &&
-      !url.hash // Can have a #bib1 which we don't want
-    ) {
-      doi = `${repos.elife}${url.pathname.replace('/articles/', '')}`;
-    }
-    if (
-      url.hostname.endsWith('zenodo.org') &&
-      url.pathname.match(/^\/(?:record|badge\/latestdoi)\//)
-    ) {
-      doi = `${repos.zenodo}${url.pathname.replace(/^\/(?:record|badge\/latestdoi)\//, '')}`;
-    }
+    const resolver = DEFAULT_RESOLVERS.find((r) => r.test(url));
+    if (!resolver) return undefined;
+    doi = resolver.parse(url);
   } catch (error) {
     // pass
   }

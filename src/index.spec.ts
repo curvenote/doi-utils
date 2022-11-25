@@ -83,12 +83,16 @@ describe('external DOI links', () => {
   });
   test('eLife', () => {
     expect(normalize('https://elifesciences.org/articles/59045')).toBe('10.7554/eLife.59045');
-    expect(normalize('https://elifesciences.org/articles/59045#bib1')).toBeUndefined();
   });
   test('zenodo', () => {
     expect(normalize('https://zenodo.org/badge/latestdoi/169800572')).toBe(
       '10.5281/zenodo.169800572'
     );
     expect(normalize('https://zenodo.org/record/169800572')).toBe('10.5281/zenodo.169800572');
+  });
+  test('joss', () => {
+    expect(normalize('https://joss.theoj.org/papers/10.21105/joss.04767')).toBe(
+      '10.21105/joss.04767'
+    );
   });
 });
