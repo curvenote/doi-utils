@@ -7,6 +7,19 @@ const repos = {
 };
 
 /**
+ * Validate that the input DOI string is valid.
+ *
+ * Uses DOI pattern described here: https://www.crossref.org/blog/dois-and-matching-regular-expressions/
+ *
+ * @param possibleDOI
+ * @returns true if DOI is valid
+ */
+export function validatePart(possibleDOI?: string): boolean {
+  if (!possibleDOI) return false;
+  return possibleDOI.match(DOI_VALIDATION_PATTERN) !== null;
+}
+
+/**
  * Validate that the input string is valid.
  *
  * Uses DOI pattern described here: https://www.crossref.org/blog/dois-and-matching-regular-expressions/
@@ -16,7 +29,7 @@ const repos = {
  */
 export function validate(possibleDOI?: string): boolean {
   if (!possibleDOI) return false;
-  return possibleDOI.match(DOI_VALIDATION_PATTERN) !== null;
+  return !!normalize(possibleDOI);
 }
 
 /**
@@ -27,10 +40,11 @@ export function validate(possibleDOI?: string): boolean {
  */
 export function normalize(possibleDOI: string): string | undefined {
   let doi: string | undefined = undefined;
-  if (validate(possibleDOI)) return possibleDOI;
+  if (!possibleDOI) return undefined;
+  if (validatePart(possibleDOI)) return possibleDOI;
   if (possibleDOI.startsWith('doi:')) {
     doi = possibleDOI.slice(4);
-    if (validate(doi)) return doi;
+    if (validatePart(doi)) return doi;
   }
   try {
     const url = new URL(possibleDOI.startsWith('http') ? possibleDOI : `http://${possibleDOI}`);
@@ -56,7 +70,7 @@ export function normalize(possibleDOI: string): string | undefined {
   } catch (error) {
     // pass
   }
-  if (validate(doi)) return doi;
+  if (validatePart(doi)) return doi;
   return undefined;
 }
 
@@ -71,3 +85,10 @@ export function buildUrl(possibleDOI: string): string | undefined {
   if (!doi) return undefined;
   return `https://doi.org/${doi}`;
 }
+
+export default {
+  validatePart,
+  validate,
+  normalize,
+  buildUrl,
+};

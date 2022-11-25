@@ -1,8 +1,13 @@
-import { validate, buildUrl, normalize } from './index';
+import { validate, buildUrl, normalize, validatePart } from './index';
 
 describe('validate', () => {
   test('should return true if doi is correct', () => {
     expect(validate('10.1234/56789')).toBe(true);
+  });
+
+  test('empty is not a validPart', () => {
+    expect(validatePart()).toBe(false);
+    expect(validatePart('')).toBe(false);
   });
 
   test('empty is not valid', () => {
@@ -10,9 +15,22 @@ describe('validate', () => {
     expect(validate('')).toBe(false);
   });
 
+  test.each([
+    'https://doi.org/10.1371/journal.pclm.0000068',
+    'doi:10.1234/56789',
+    '10.1234/56789',
+    'doi.org/10.1371/journal.pclm.0000068',
+  ])('Validate works for %p', (valid) => {
+    expect(validate(valid)).toBe(true);
+  });
+
   // can expand on here if needed
-  test.each([[':10.1234/56789a']])('should not validate when it is %p', (invalid) => {
-    expect(validate(invalid)).toBe(false);
+  test.each([
+    'https://doi.org/10.1371/journal.pclm.0000068',
+    ':10.1234/56789a',
+    'doi:10.1234/56789',
+  ])('should not validatePart when it is %p', (invalid) => {
+    expect(validatePart(invalid)).toBe(false);
   });
 });
 
