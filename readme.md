@@ -9,6 +9,8 @@ This repository follows the advice of [CrossRef](https://www.crossref.org/blog/d
 
 > For the 74.9M DOIs we have seen this matches 74.4M of them. If you need to use only one pattern then use this one.
 
+The utility also recognizes URLs that are likely DOIs, and has specific handling for some repositories (e.g. eLife, Zenodo).
+
 ## Install
 
 ```bash
@@ -33,6 +35,7 @@ buildUrl('doi:10.1016/j.cageo.2015.09.015');
 ## Included Utilities
 
 - `validate` - Validates if a single DOI string is valid, is tolerant of leading link or `doi:` strings.
+- `validatePart` - Validate the "10.1016/j.cageo.2015.09.015" part of a DOI.
 - `normalize` - Normalizes a DOI url or string into a DOI of the form `10.1000/xyz000`
 - `buildUrl` - Builds a URL to https://doi.org, includes normalization
 
