@@ -78,6 +78,11 @@ describe('external DOI links', () => {
       'https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022GC010600',
       '10.1029/2022GC010600',
     ],
+    [
+      'plos',
+      'https://journals.plos.org/climate/article?id=10.1371/journal.pclm.0000068',
+      '10.1371/journal.pclm.0000068',
+    ],
     ['zenodo', 'https://zenodo.org/badge/latestdoi/169800572', '10.5281/zenodo.169800572'],
     ['joss', 'https://joss.theoj.org/papers/10.21105/joss.04767', '10.21105/joss.04767'],
     ['pathnames', 'https://pangaea.de/doi/10.1594/PANGAEA.941238', '10.1594/PANGAEA.941238'],

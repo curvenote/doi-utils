@@ -49,5 +49,14 @@ const pathParts: Resolver = {
   },
 };
 
+const idInQuery: Resolver = {
+  test(url) {
+    return validatePart(url.searchParams.get('id'));
+  },
+  parse(url) {
+    return url.searchParams.get('id');
+  },
+};
+
 export const STRICT_RESOLVERS = [doiOrg];
-export const DEFAULT_RESOLVERS = [doiOrg, pathParts, elife, zenodo];
+export const DEFAULT_RESOLVERS = [doiOrg, pathParts, elife, zenodo, idInQuery];
