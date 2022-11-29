@@ -15,7 +15,7 @@ export type Options = {
  * @param possibleDOI
  * @returns true if DOI is valid
  */
-function validate(possibleDOI?: string, opts?: Options): boolean {
+function validate(possibleDOI?: string | null, opts?: Options): boolean {
   if (!possibleDOI) return false;
   return !!normalize(possibleDOI, opts);
 }
@@ -26,7 +26,7 @@ function validate(possibleDOI?: string, opts?: Options): boolean {
  * @param possibleDOI
  * @returns a string if it is valid
  */
-function normalize(possibleDOI: string, opts?: Options): string | undefined {
+function normalize(possibleDOI?: string | null, opts?: Options): string | undefined {
   let doi: string | undefined = undefined;
   if (!possibleDOI) return undefined;
   if (validatePart(possibleDOI)) return possibleDOI;
@@ -53,7 +53,7 @@ function normalize(possibleDOI: string, opts?: Options): string | undefined {
  * @param possibleDOI
  * @returns the doi as a string
  */
-function buildUrl(possibleDOI: string, opts?: Options): string | undefined {
+function buildUrl(possibleDOI?: string | null, opts?: Options): string | undefined {
   const doi = normalize(possibleDOI, opts);
   if (!doi) return undefined;
   return `https://doi.org/${doi}`;
