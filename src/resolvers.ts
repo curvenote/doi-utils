@@ -14,15 +14,6 @@ const doiOrg: Resolver = {
   },
 };
 
-const doiSubdomain: Resolver = {
-  test(url) {
-    return !!url.hostname.match(/(?:^|\.)doi./) || url.pathname.includes('/doi/');
-  },
-  parse(url) {
-    return url.pathname.replace(/\/doi\//, '').replace(/^\//, '');
-  },
-};
-
 const elife: Resolver = {
   test(url) {
     return url.hostname.endsWith('elifesciences.org') && url.pathname.startsWith('/articles/');
@@ -59,4 +50,4 @@ const pathParts: Resolver = {
 };
 
 export const STRICT_RESOLVERS = [doiOrg];
-export const DEFAULT_RESOLVERS = [doiOrg, doiSubdomain, elife, zenodo, pathParts];
+export const DEFAULT_RESOLVERS = [doiOrg, pathParts, elife, zenodo];

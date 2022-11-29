@@ -73,6 +73,11 @@ describe('normalize', () => {
 describe('external DOI links', () => {
   test.each([
     ['elife', 'https://elifesciences.org/articles/59045', '10.7554/eLife.59045'],
+    [
+      'wiley',
+      'https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022GC010600',
+      '10.1029/2022GC010600',
+    ],
     ['zenodo', 'https://zenodo.org/badge/latestdoi/169800572', '10.5281/zenodo.169800572'],
     ['joss', 'https://joss.theoj.org/papers/10.21105/joss.04767', '10.21105/joss.04767'],
     ['pathnames', 'https://pangaea.de/doi/10.1594/PANGAEA.941238', '10.1594/PANGAEA.941238'],
