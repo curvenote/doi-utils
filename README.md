@@ -41,7 +41,7 @@ doi.buildUrl('doi:10.1016/j.cageo.2015.09.015');
 
 ## Options
 
-- `strict`: only accecpt doi.org URLs and `doi:` prefixes
+- `strict`: only accept doi.org URLs and `doi:` prefixes
 
 ---
 
