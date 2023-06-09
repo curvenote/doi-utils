@@ -1,13 +1,16 @@
 {
   "name": "doi-utils",
-  "version": "1.0.9",
+  "version": "2.0.0",
   "description": "Set of utility functions to help with handling DOI(Digital Object Identifier)",
   "author": "Curvenote Inc. <support@curvenote.com>",
   "license": "MIT",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
   "sideEffects": false,
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/curvenote/doi-utils.git"
@@ -18,24 +21,24 @@
   "homepage": "https://github.com/curvenote/doi-utils",
   "scripts": {
     "prepublishOnly": "npm test && npm run build",
-    "build_types": "tsc -b .",
-    "build_cjs": "swc -C module.type=commonjs -d dist/cjs src/",
-    "build_esm": "swc -C module.type=es6 -d dist/esm src/",
     "clean": "rm -rf dist",
-    "build": "npm run clean && npm run build_types && npm run build_esm && npm run build_cjs",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "lint": "eslint \"src/**/*.ts*\" -c ./.eslintrc.cjs",
+    "lint:format": "prettier --check \"src/**/*.{ts,tsx,md}\"",
+    "build:esm": "tsc --project ./tsconfig.json --module es2015 --outDir dist --declaration",
+    "build": "npm-run-all -l clean -p build:esm"
   },
   "keywords": [
     "doi",
     "tookit"
   ],
   "devDependencies": {
-    "@swc/cli": "^0.1.57",
-    "@swc/core": "^1.2.186",
-    "@swc/jest": "^0.2.21",
-    "@types/jest": "^27.5.1",
-    "jest": "^27.1.0",
-    "typescript": "^4.6.4"
+    "eslint": "^8.42.0",
+    "eslint-config-curvenote": "latest",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.8",
+    "typescript": "^5.1.3",
+    "vitest": "^0.32.0"
   }
 }

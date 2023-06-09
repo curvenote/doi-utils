@@ -1,4 +1,5 @@
-import doi from './index';
+import { describe, expect, test } from 'vitest';
+import { doi } from './index';
 
 describe('validate', () => {
   test('should return true if doi is correct', () => {
