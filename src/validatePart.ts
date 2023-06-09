@@ -9,7 +9,7 @@ const DOI_VALIDATION_PATTERN = /^10.\d{4,9}\/[-._;()/:A-Z0-9]+$/i; // source: ht
  * @param possibleDOI
  * @returns true if DOI is valid
  */
-export function validatePart(possibleDOI?: string): boolean {
+export function validatePart(possibleDOI?: string | null): boolean {
   if (!possibleDOI) return false;
   return possibleDOI.match(DOI_VALIDATION_PATTERN) !== null;
 }

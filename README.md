@@ -20,7 +20,7 @@ npm install doi-utils
 ## Overview & Usage
 
 ```ts
-import doi from 'doi-utils';
+import { doi } from 'doi-utils';
 
 const isValid = doi.validate('http://doi.org/10.1016/j.cageo.2015.09.015');
 
@@ -42,6 +42,10 @@ doi.buildUrl('doi:10.1016/j.cageo.2015.09.015');
 ## Options
 
 - `strict`: only accept doi.org URLs and `doi:` prefixes
+
+---
+
+As of v2.0.0 this package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
 
 ---
 

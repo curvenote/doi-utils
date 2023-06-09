@@ -1,8 +1,8 @@
-import { validatePart } from './validatePart';
+import { validatePart } from './validatePart.js';
 
 interface Resolver {
   test: (url: URL) => boolean;
-  parse: (url: URL) => string;
+  parse: (url: URL) => string | undefined;
 }
 
 const doiOrg: Resolver = {
@@ -54,7 +54,7 @@ const idInQuery: Resolver = {
     return validatePart(url.searchParams.get('id'));
   },
   parse(url) {
-    return url.searchParams.get('id');
+    return url.searchParams.get('id') ?? undefined;
   },
 };
 

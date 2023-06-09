@@ -1,23 +1,29 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "lib": [
-      "ESNext"
-    ],
-    "jsx": "react-jsx",
-    "declaration": true,
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "target": "ES2019",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": false,
+    "isolatedModules": true,
+    "module": "node16",
+    "moduleResolution": "node16",
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
-    "emitDeclarationOnly": true,
-    "outDir": "dist"
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "lib": ["es2021", "DOM"],
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types",
+      "../../node_modules/@types",
+      "../../../node_modules/@types"
+    ]
   },
-  "exclude": [
-    "**/node_modules/**",
-    "**/lib/**"
-  ],
-  "include": [
-    "./src/*.ts"
-  ]
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules", "src/**/*.spec.ts", "tests"]
 }
