@@ -94,3 +94,14 @@ describe('external DOI links', () => {
     expect(doi.validate(url, { strict: true })).toBe(false);
   });
 });
+
+describe('Open Funder Registry', () => {
+  test.each([
+    ['', false],
+    ['http://www.doi.org/10.1234/56789', false],
+    ['http://dx.doi.org/10.13039/100000879', true],
+    ['10.13039/100000879', true],
+  ])('Test %s <%s>', (doiString, result) => {
+    expect(doi.isOpenFunderRegistry(doiString)).toBe(result);
+  });
+});
