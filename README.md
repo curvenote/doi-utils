@@ -38,6 +38,7 @@ doi.buildUrl('doi:10.1016/j.cageo.2015.09.015');
 - `validatePart` - Validate the "10.1016/j.cageo.2015.09.015" part of a DOI.
 - `normalize` - Normalizes a DOI url or string into a DOI of the form `10.1000/xyz000`
 - `buildUrl` - Builds a URL to https://doi.org, includes normalization
+- `isOpenFunderRegistry` - Returns true if the DOI is in the [Open Funder Registry](https://www.crossref.org/documentation/funder-registry/)
 
 ## Options
 

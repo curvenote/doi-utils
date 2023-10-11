@@ -3,6 +3,8 @@ import { validatePart } from './validatePart.js';
 
 export { DEFAULT_RESOLVERS, STRICT_RESOLVERS } from './resolvers.js';
 
+export const OPEN_FUNDER_REGISTRY_PREFIX = '10.13039';
+
 export type Options = {
   strict?: boolean;
 };
@@ -59,9 +61,21 @@ export function buildUrl(possibleDOI?: string | null, opts?: Options): string | 
   return `https://doi.org/${doi}`;
 }
 
+/**
+ * Returns `true` if the DOI is in the Open Funder Registry
+ *
+ * See https://www.crossref.org/documentation/funder-registry/
+ */
+export function isOpenFunderRegistry(possibleDOI?: string): boolean {
+  const doi = normalize(possibleDOI);
+  if (!doi) return false;
+  return doi.startsWith(`${OPEN_FUNDER_REGISTRY_PREFIX}/`);
+}
+
 export const doi = {
   validatePart,
   validate,
   normalize,
   buildUrl,
+  isOpenFunderRegistry,
 };
