@@ -38,10 +38,13 @@ export function normalize(possibleDOI?: string | null, opts?: Options): string |
   }
   try {
     const url = new URL(possibleDOI.startsWith('http') ? possibleDOI : `http://${possibleDOI}`);
-    const resolvers = opts?.strict ? STRICT_RESOLVERS : DEFAULT_RESOLVERS;
-    const resolver = resolvers.find((r) => r.test(url));
+    const strictResolver = STRICT_RESOLVERS.find((r) => r.test(url));
+    const nonStrictResolver = DEFAULT_RESOLVERS.find((r) => r.test(url));
+    if (opts?.strict && !strictResolver) return undefined;
+    const resolver = strictResolver ?? nonStrictResolver;
     if (!resolver) return undefined;
     doi = resolver.parse(url);
+    if (!opts?.strict && strictResolver) return doi;
   } catch (error) {
     // pass
   }

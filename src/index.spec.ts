@@ -25,6 +25,17 @@ describe('validate', () => {
     expect(doi.validate(valid)).toBe(true);
   });
 
+  test('weird links that have DOI.org in them still pass', () => {
+    const doiPart = '10.1175/1520-0493(1972)100%3C0081%3AOTAOSH%3E2.3.CO%3B2';
+    const url = `https://doi.org/${doiPart}`;
+    // Having the doi URL in there passes
+    expect(doi.normalize(url)).toBe(doiPart);
+    // On it's own it does not pass
+    expect(doi.normalize(doiPart)).toBe(undefined);
+    // Unless we put on strict mode!
+    expect(doi.validate(url, { strict: true })).toBe(false);
+  });
+
   // can expand on here if needed
   test.each([
     'https://doi.org/10.1371/journal.pclm.0000068',
