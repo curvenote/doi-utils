@@ -26,7 +26,7 @@
     "test:watch": "vitest watch",
     "lint": "eslint \"src/**/*.ts*\" -c ./.eslintrc.cjs",
     "lint:format": "prettier --check \"src/**/*.{ts,tsx,md}\"",
-    "build:esm": "tsc --project ./tsconfig.json --module es2015 --outDir dist --declaration",
+    "build:esm": "tsc",
     "build": "npm-run-all -l clean -p build:esm"
   },
   "keywords": [
@@ -34,11 +34,11 @@
     "tookit"
   ],
   "devDependencies": {
-    "eslint": "^8.42.0",
+    "eslint": "^8.53.0",
     "eslint-config-curvenote": "latest",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.8.8",
-    "typescript": "^5.1.3",
-    "vitest": "^0.32.0"
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
   }
 }
