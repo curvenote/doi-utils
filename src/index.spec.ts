@@ -99,6 +99,11 @@ describe('external DOI links', () => {
     ['joss', 'https://joss.theoj.org/papers/10.21105/joss.04767', '10.21105/joss.04767'],
     ['pathnames', 'https://pangaea.de/doi/10.1594/PANGAEA.941238', '10.1594/PANGAEA.941238'],
     ['subdomains', 'https://doi.pangaea.de/10.1594/PANGAEA.941238', '10.1594/PANGAEA.941238'],
+    [
+      'biorxiv',
+      'https://www.biorxiv.org/content/10.1101/2020.11.02.364968v2',
+      '10.1101/2020.11.02.364968',
+    ],
   ])('Test %s (%s) <%s>', (_, url, doiString) => {
     expect(doi.normalize(url)).toBe(doiString);
     expect(doi.validate(url)).toBe(true);
