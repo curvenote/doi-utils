@@ -35,6 +35,17 @@ const zenodo: Resolver = {
   },
 };
 
+const biorxiv: Resolver = {
+  test(url) {
+    return url.hostname.endsWith('biorxiv.org') && !!clumpParts(url).find(validatePart);
+  },
+  parse(url) {
+    return clumpParts(url)
+      .find(validatePart)
+      ?.replace(/v([\d]*)$/, '');
+  },
+};
+
 function clumpParts(url: URL) {
   const parts = url.pathname.split('/').filter((p) => !!p);
   return parts.slice(0, -1).map((a, i) => `${a}/${parts[i + 1]}`);
@@ -59,4 +70,4 @@ const idInQuery: Resolver = {
 };
 
 export const STRICT_RESOLVERS = [doiOrg];
-export const DEFAULT_RESOLVERS = [doiOrg, pathParts, elife, zenodo, idInQuery];
+export const DEFAULT_RESOLVERS = [doiOrg, biorxiv, pathParts, elife, zenodo, idInQuery];
